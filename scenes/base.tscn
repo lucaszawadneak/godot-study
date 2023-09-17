@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://clyccsxo1pf42"]
+[gd_scene load_steps=21 format=3 uid="uid://clyccsxo1pf42"]
 
 [ext_resource type="Texture2D" uid="uid://nulis3r6noan" path="res://Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="1_x2sgx"]
 [ext_resource type="Texture2D" uid="uid://dtlxfod3ev2ij" path="res://Seasonal Tilesets/1 - Grassland/Grassland_entities (16 x 16).png" id="2_ey1cx"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://d2ngu6kws6xxo" path="res://Seasonal Tilesets/1 - Grassland/Background parts/2 - Hills.png" id="8_gtgvt"]
 [ext_resource type="Texture2D" uid="uid://bcgkm7qpmwfp5" path="res://Seasonal Tilesets/1 - Grassland/Background parts/1 - Foreground_scenery.png" id="9_ma83b"]
 [ext_resource type="PackedScene" uid="uid://d2mumf4n078r4" path="res://items/moving_platform.tscn" id="11_ssax0"]
+[ext_resource type="PackedScene" uid="uid://cjg3m3xyju4uu" path="res://coin.tscn" id="12_32ycj"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_5c0bc"]
 tile_data = PackedInt32Array(0, 65538, 1)
@@ -279,7 +280,7 @@ shader_parameter/move_speed = 0.01
 
 [node name="level" type="TileMap" parent="."]
 texture_filter = 1
-position = Vector2(8, 0)
+position = Vector2(-18, 0)
 tile_set = SubResource("TileSet_n2a6o")
 format = 2
 layer_0/name = "ground"
@@ -360,3 +361,6 @@ position = Vector2(674, -25)
 modulate = Color(0.886275, 0.470588, 0.517647, 1)
 position = Vector2(-52, -9)
 move_horizontal = false
+
+[node name="coin" parent="." instance=ExtResource("12_32ycj")]
+position = Vector2(102, 21)
