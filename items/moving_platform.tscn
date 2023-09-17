@@ -10,6 +10,7 @@ size = Vector2(32, 16)
 script = ExtResource("1_31ujv")
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
 shape = SubResource("RectangleShape2D_jmjqt")
