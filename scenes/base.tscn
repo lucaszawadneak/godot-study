@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://clyccsxo1pf42"]
+[gd_scene load_steps=23 format=3 uid="uid://clyccsxo1pf42"]
 
+[ext_resource type="Script" path="res://scenes/base.gd" id="1_ioh61"]
 [ext_resource type="Texture2D" uid="uid://nulis3r6noan" path="res://Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="1_x2sgx"]
 [ext_resource type="Texture2D" uid="uid://dtlxfod3ev2ij" path="res://Seasonal Tilesets/1 - Grassland/Grassland_entities (16 x 16).png" id="2_ey1cx"]
 [ext_resource type="Texture2D" uid="uid://dx3lxjvi6g41j" path="res://Seasonal Tilesets/5 - Misc. universal tiles/Flowers (16 x 16).png" id="2_qvajv"]
@@ -279,6 +280,7 @@ shader = ExtResource("6_073bd")
 shader_parameter/move_speed = 0.01
 
 [node name="BASE" type="Node2D"]
+script = ExtResource("1_ioh61")
 
 [node name="level" type="TileMap" parent="."]
 texture_filter = 1
@@ -296,7 +298,7 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(131067, 65538, 5, 65539, 65538, 5, -65543, 196610, 5, 65532, 65538, 1, 6, 327682, 1, -131080, 589826, 1, -65545, 196609, 0, -131070, 131073, 0, 65536, 1, 0, -65519, 196609, 0, -65508, 131073, 0, 41, 1, 0, 9, 196610, 5)
 
 [node name="player" parent="." instance=ExtResource("3_rro6m")]
-position = Vector2(-25, 22)
+position = Vector2(-26, 22)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -368,7 +370,21 @@ move_horizontal = false
 position = Vector2(102, 21)
 
 [node name="enemy" parent="." instance=ExtResource("13_dkssj")]
-position = Vector2(16, -24)
+position = Vector2(17, -24)
 
 [node name="enemy2" parent="." instance=ExtResource("13_dkssj")]
 position = Vector2(120, 8)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+limit_bottom = 100
+limit_smoothed = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.1
+drag_vertical_offset = -0.08
+drag_left_margin = 0.43
+drag_top_margin = 0.22
+drag_right_margin = 0.12
+editor_draw_limits = true
+editor_draw_drag_margin = true

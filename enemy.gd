@@ -10,6 +10,8 @@ var direction = -1;
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var wall_detector = $RayCast2D as RayCast2D
+@onready var anim = $AnimationPlayer as AnimationPlayer
+@onready var sprite = $Sprite2D as Sprite2D
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -24,3 +26,10 @@ func _physics_process(delta):
 	velocity.x = direction * SPEED * delta 
 
 	move_and_slide()
+
+
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "hurt":
+		queue_free()

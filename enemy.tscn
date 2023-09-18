@@ -1,53 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://diy0pdkqdtr5e"]
+[gd_scene load_steps=13 format=3 uid="uid://diy0pdkqdtr5e"]
 
 [ext_resource type="Texture2D" uid="uid://be4v2bfoac7db" path="res://Sprite Pack 2/4 - Robo Pumpkin/Walking (16 x 16).png" id="1_pdkvd"]
 [ext_resource type="Script" path="res://enemy.gd" id="1_wd30m"]
 [ext_resource type="Texture2D" uid="uid://chy2ja57a11ud" path="res://Sprite Pack 2/4 - Robo Pumpkin/Hurt (16 x 16).png" id="3_u5mmg"]
 [ext_resource type="Texture2D" uid="uid://defwlok47tghi" path="res://Sprite Pack 2/4 - Robo Pumpkin/Standing (16 x 16).png" id="4_paytq"]
+[ext_resource type="PackedScene" uid="uid://d3fd6ml12g4k6" path="res://hitbox.tscn" id="5_av8he"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mopvy"]
-radius = 7.28011
-
-[sub_resource type="Animation" id="Animation_imodn"]
-resource_name = "walk"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_pdkvd")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plwkl"]
+size = Vector2(14, 10)
 
 [sub_resource type="Animation" id="Animation_3qaaq"]
 length = 0.001
@@ -168,6 +128,47 @@ tracks/2/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_imodn"]
+resource_name = "walk"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_pdkvd")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pwnxw"]
 _data = {
 "RESET": SubResource("Animation_3qaaq"),
@@ -176,7 +177,10 @@ _data = {
 "walk": SubResource("Animation_imodn")
 }
 
-[node name="enemy" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxpfk"]
+size = Vector2(10, 1)
+
+[node name="enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_wd30m")
@@ -187,7 +191,8 @@ texture = ExtResource("1_pdkvd")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_mopvy")
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_plwkl")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../CollisionShape2D")
@@ -200,3 +205,13 @@ libraries = {
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-8, 0)
 collision_mask = 6
+
+[node name="hitbox" parent="." instance=ExtResource("5_av8he")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_gxpfk")
+debug_color = Color(0, 0.65098, 0.101961, 0.419608)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
